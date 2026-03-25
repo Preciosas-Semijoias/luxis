@@ -92,7 +92,7 @@ export class AuthController {
 
     res.cookie(this.config.getAuthCookieName(), result.accessToken, {
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: this.config.isProduction() ? 'none' : 'lax',
       secure: this.config.isProduction(),
       path: '/'
     })
@@ -105,7 +105,7 @@ export class AuthController {
   async logout(@Res({ passthrough: true }) res: Response): Promise<void> {
     res.clearCookie(this.config.getAuthCookieName(), {
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: this.config.isProduction() ? 'none' : 'lax',
       secure: this.config.isProduction(),
       path: '/'
     })
