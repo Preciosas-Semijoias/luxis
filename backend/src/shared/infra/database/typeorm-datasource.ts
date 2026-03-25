@@ -18,6 +18,9 @@ import * as sqlite3 from 'sqlite3'
 import { Init1749406833692 } from '@/shared/infra/database/migrations/1749406833692-Init'
 import { AddPerformanceIndexes1749500000000 } from '@/shared/infra/database/migrations/1749500000000-AddPerformanceIndexes'
 import { PasswordResetRequestTypeOrmEntity } from '@/shared/infra/persistence/typeorm/auth/password-reset-requests/password-reset-requests.typeorm.entity'
+import { CustomerTypeOrmEntity } from '@/shared/infra/persistence/typeorm/customer/customer.typeorm.entity'
+import { CustomerPortfolioTypeOrmEntity } from '@/shared/infra/persistence/typeorm/customer-portfolio/customer-portfolio.typeorm.entity'
+import { FixMissingColumnsAndTables1774483200000 } from '@/shared/infra/database/migrations/1774483200000-FixMissingColumnsAndTables'
 dotenv.config({ path: '.env.development' })
 
 const commonConfig = {
@@ -33,9 +36,15 @@ const commonConfig = {
     ProductModelTypeOrmEntity,
     SupplierTypeOrmEntity,
     ReturnTypeOrmEntity,
-    PasswordResetRequestTypeOrmEntity
+    PasswordResetRequestTypeOrmEntity,
+    CustomerTypeOrmEntity,
+    CustomerPortfolioTypeOrmEntity
   ],
-  migrations: [Init1749406833692, AddPerformanceIndexes1749500000000],
+  migrations: [
+    Init1749406833692,
+    AddPerformanceIndexes1749500000000,
+    FixMissingColumnsAndTables1774483200000
+  ],
   synchronize: false
 }
 
