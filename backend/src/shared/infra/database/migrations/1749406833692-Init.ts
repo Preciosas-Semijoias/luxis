@@ -65,6 +65,9 @@ export class Init1749406833692 implements MigrationInterface {
       `CREATE TABLE "returns" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "reseller_id" character varying NOT NULL, "product_ids" uuid array NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "status" "public"."returns_status_enum" NOT NULL, CONSTRAINT "PK_27a2f1895a71519ebfec7850361" PRIMARY KEY ("id"))`
     )
     await queryRunner.query(
+      `CREATE TYPE "public"."password_reset_request_status_enum" AS ENUM('PENDING', 'APPROVED', 'REJECTED', 'COMPLETED')`
+    )
+    await queryRunner.query(
       `CREATE TABLE "password_reset_requests" ("id" uuid NOT NULL, "user_id" uuid NOT NULL, "name" character varying NOT NULL, "email" character varying NOT NULL, "phone" character varying NOT NULL, "token" character varying NOT NULL, "status" "public"."password_reset_request_status_enum" NOT NULL DEFAULT 'PENDING', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "approved_at" TIMESTAMP, "rejected_at" TIMESTAMP, "completed_at" TIMESTAMP, CONSTRAINT "UQ_4c8a8f3c8e3b0f6f4e8e2b5c9d1" UNIQUE ("token"), CONSTRAINT "PK_5a6f7e8d9c0b1a2b3c4d5e6f7g8" PRIMARY KEY ("id"))`
     )
   }
