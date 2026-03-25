@@ -6,7 +6,9 @@ export type ErrorType<T> = T & {
   status: number
 }
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000'
+const API = (
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000'
+).replace(/\/+$/, '')
 const REQUEST_TIMEOUT_MS = 15000
 const RETRYABLE_METHODS = new Set(['GET', 'HEAD'])
 const RETRYABLE_STATUS = new Set([408, 429, 500, 502, 503, 504])
