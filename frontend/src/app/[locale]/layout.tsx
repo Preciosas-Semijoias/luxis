@@ -9,10 +9,9 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
-  const resolvedParams = await Promise.resolve(params)
-  const { locale } = resolvedParams
+  const { locale } = await params
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
