@@ -23,7 +23,7 @@ export async function salesInPeriod(
   const qb = saleRepo
     .createQueryBuilder('sale')
     .innerJoin(UserTypeOrmEntity, 'reseller', 'reseller.id = sale.resellerId')
-    .innerJoin(
+    .leftJoin(
       CustomerTypeOrmEntity,
       'customer',
       'customer.id = sale.customerId'
@@ -86,7 +86,6 @@ export async function salesInPeriod(
     products: mapProducts(row.productIds, productMap)
   }))
 
-  console.log('[DEBUG] salesInPeriod ', sales)
   return {
     start: qParams.start,
     end: qParams.end,
